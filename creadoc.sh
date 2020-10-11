@@ -1,2 +1,2 @@
 #!/bin/bash
-javadoc -d docs/ src/*.java
+javadoc -d docs/ src/Conto.java
