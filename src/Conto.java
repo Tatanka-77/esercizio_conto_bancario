@@ -1,24 +1,59 @@
+import java.util.*;
 /** Classe che modella un semplice conto bancario */
 public class Conto {
 	static private int progressivo = 1;
-	private int codiceConto;
-	private String nome;
+	final private int codiceConto;
+	final private String nome;
+	final private String cognome;
 	private double saldo;
 
-	/** Istanzia un conto con nome e saldo ricevuti come parametro
-	 * @param nome String intestatario del conto
+	/** Metodo statico per richiedere il nome del correntista all'utente
+	 * @return String - Nome del correntista */
+	private static String acquisisciNome() {
+		Scanner datiInseriti = new Scanner(System.in);
+		System.out.print ("Inserisci il nome del correntista -> ");
+		return datiInseriti.nextLine();
+	}
+	
+	/** Metodo statico per richiedere il cognome del correntista all'utente
+         * @return String - Cognome del correntista */
+        private static String acquisisciCognome() {
+                Scanner datiInseriti = new Scanner(System.in);
+                System.out.print ("Inserisci il cognome del correntista -> ");
+                return datiInseriti.nextLine();
+	}
+	
+	/** Metodo statico per richiedere il saldo iniziale all'utente
+         * @return double saldo iniziale */
+        private static double acquisisciSaldo() {
+                Scanner datiInseriti = new Scanner(System.in);
+                System.out.print ("Inserisci il saldo iniziale -> ");
+                return datiInseriti.nextDouble();
+	}
+
+
+	/** Istanzia un conto con nome cognome e saldo iniziale ricevuti come parametro
+	 * @param nome String nome dell'intestatario del conto
+	 * @param cognome String cognome dell'intestatario del conto
 	 * @param saldo double saldo iniziale */
-	public Conto (String nome, double saldo) {
+	public Conto (String nome, String cognome, double saldo) {
 		this.codiceConto = progressivo++;
 		this.nome = nome.substring(0,1).toUpperCase() + nome.substring(1,nome.length()).toLowerCase();
+		this.cognome = cognome.substring(0,1).toUpperCase() + cognome.substring(1,cognome.length()).toLowerCase(); //memorizzo nomi e cognomi con iniziale maiuscola e resto minuscolo
 		this.saldo = saldo;
 		}
 
-	/** Istanzia un conto ricevendo come parametro solo il nome ed impostando il saldo a zero
+	/** Istanzia un conto ricevendo come parametro solo il nome ed il cognome  impostando il saldo a zero
 	 * @param nome String intestatario del conto */
-	public Conto (String nome) {
-		this(nome,0);
+	public Conto (String nome, String cognome) {
+		this(nome, cognome, 0);
 	}
+
+	/** Istanzia un conto richiedendo i parametri dalla console */
+	public Conto () {
+		this(acquisisciNome(), acquisisciCognome(), acquisisciSaldo());
+	}
+
 
 	/** Restituisce il codice del conto 
 	 * @return int codice del conto */
@@ -29,7 +64,7 @@ public class Conto {
 	/** Restituisce l'intestatario del conto
 	 * @return String Nome del correntista */
 	public String getCorrentista() {
-		return this.nome;
+		return this.nome + " " + this.cognome;
 	}
 
 	/** Restituisce il saldo del conto
